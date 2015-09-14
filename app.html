@@ -1,0 +1,95 @@
+<!DOCTYPE.html>
+<html ng-app="status-report">
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	</head>
+	<body ng-controller="status-controller">
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<h1>Pivotal Tracker Completion % Report</h1> 
+		For projects that track every story within an epic
+		
+		<h3>{{ current_status }}</h3>
+
+		<h2>Settings</h2>
+		<p>
+		  <label for='token'>User API Token:</label>
+		  <input type='text' value='{{token}}' id='token' />
+		  <a href='#' id='projects_link'>Get My Projects </a>
+		</p>
+		<p>
+		  <label for='project_id'>Project:</label>
+		  <select id='project_id'>
+			<option ng-repeat="project in projects" value="{{project.id}}">{{project.name}}</option>
+		  </select>
+		</p>
+		<p>
+		  <label for='ignore_label'>Ignore stories with the label:</label>
+		  <input id='ignore_label' value='{ignore_label}}'>
+		  </select>
+		</p>
+		<p>Points Per Status</p>
+		<table>
+		  <tr>
+			<th>unscheduled</th>
+			<th>unstarted</th>
+			<th>started</th>
+			<th>finished</th>
+			<th>delivered</th>
+			<th>accepted</th>
+			<th>rejected</th>
+			<th>chore</th>
+			<th>unpointed</th>
+		  </tr>
+		  <tr>
+			<td>
+			  <input type='text' id="unscheduled_points" value='{{ unscheduled_points }}' />
+			</td>
+			<td>
+			  <input type='text' id="unstarted_points" value='{{ unstarted_points }}' />
+			</td>
+			<td>
+			  <input type='text' id="started_points" value='{{ started_points }}' />
+			</td>
+			<td>
+			  <input type='text' id="finished_points" value='{{ finished_points }}' />
+			</td>
+			<td>
+			  <input type='text' id="delivered_points" value='{{ delivered_points }}' />
+			</td>
+			<td>
+			  <input type='text' id="accepted_points"value='{{ accepted_points }}'/>
+			</td>
+			<td>
+			  <input type='text' id="rejected_points" value='{{ rejected_points }}' />
+			</td>
+			<td>
+			  <input type='text' id="chore_points" value='{{ chore_points }}' />
+			</td>
+			<td>
+			  <input type='text' id="unpointed_points" value='{{ unpointed_points }}' />
+			</td>
+		  </tr>
+		</table>
+
+		<a href='#' id='doit_link'>Run Report</a>
+
+		<div style='margin:40px'>
+		  <h2>Status Report for {{ project_name }}</h2>
+		  <div id='result_area'>
+			<table>
+				<tr><th>Epic</th><th>Total Points</th><th>Completed Points</th><th>% Completed</th></tr>
+				<tr ng-repeat="epic in epics">
+					<td>{{total_points}}</td>
+					<td>{{completed_points}}</td>
+					<td>{{completed_points / total_points}}</td>
+				</tr>
+				<tr><th>TOTAL</th><th>{{ aggregrate_total}}</th><th>{{ aggregrate_complete }}</th><th>{{ aggregrate_complete / aggregate_total }}</th></tr>
+			</table>
+		  </div>
+		</div>
+
+		
+</body>
+</html>
+		
