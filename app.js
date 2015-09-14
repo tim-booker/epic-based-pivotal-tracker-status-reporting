@@ -68,7 +68,7 @@ app.controller('status-controller',function ($scope, $http) {
 							}
 						}
 						if (!non_mvp) {
-							story.points = (story.hasOwnProperty('estimate')) ? story.estimate : ((story.hasOwnProperty('story_type') && story.story_type == 'feature') ? unpointed_points : chore_points);
+							story.points = (story.hasOwnProperty('estimate')) ? story.estimate : ((story.hasOwnProperty('story_type') && story.story_type == 'feature') ? $scope.unpointed_points : $scope.chore_points);
 							epic.total_points += story.points;
 							epic.completed_points += story.points * parseFloat($('#' + stories[i].current_state + '_points')[0].value);
 						}
