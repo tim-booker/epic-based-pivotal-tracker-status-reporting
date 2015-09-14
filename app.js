@@ -54,7 +54,7 @@ app.controller('status-controller',function ($scope, $http) {
 			$scope.current_status = "Getting List of Stories...";
 			for (var e=0; e<$scope.epics.length; e++) {
 				var epic = $scope.epics[e];
-				$http.get($scope.api_prefix + "projects/" + project_id + "/stories?with_label/" + epic.name,$scope.config).success(function (data, status, headers, config) {
+				$http.get($scope.api_prefix + "projects/" + $scope.project_id + "/stories?with_label=" + epic.label.name,$scope.config).success(function (data, status, headers, config) {
 					$scope.stories = data;
 					epic.total_points = 0;
 					epic.completed_points = 0;
@@ -62,7 +62,7 @@ app.controller('status-controller',function ($scope, $http) {
 						var story = $scope.stories[s];
 						story.non_mvp = false;
 						for (var l=0; s<story.labels.length; l++) {
-							if (story.labels[l].name == ignore_label) {
+							if (story.labels[l].name == $scope.ignore_label) {
 							  non_mvp = true;
 							  break;
 							}

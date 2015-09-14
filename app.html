@@ -15,18 +15,18 @@
 		<h2>Settings</h2>
 		<p>
 		  <label for='token'>User API Token:</label>
-		  <input type='text' value='{{token}}' id='token' />
+		  <input type='text' ng-model='token' id='token' />
 		  <a ng-click="getProjects()">Get My Projects </a>
 		</p>
 		<p>
 		  <label for='project_id'>Project:</label>
-		  <select id='project_id'>
-			<option ng-repeat="project in projects" value="{{project.id}}">{{project.name}}</option>
+		  <select ng-model="project_id" id='project_id'>
+			  <option ng-repeat="project in projects" value="{{project.id}}">{{project.name}}</option>
 		  </select>
 		</p>
 		<p>
 		  <label for='ignore_label'>Ignore stories with the label:</label>
-		  <input id='ignore_label' value='{{ignore_label}}'>
+		  <input id='ignore_label' ng-model='ignore_label'>
 		  </select>
 		</p>
 		<p>Points Per Status</p>
@@ -44,31 +44,31 @@
 		  </tr>
 		  <tr>
 			<td>
-			  <input type='text' id="unscheduled_points" value='{{ unscheduled_points }}' />
+			  <input type='text' id="unscheduled_points" ng-model='unscheduled_points' />
 			</td>
 			<td>
-			  <input type='text' id="unstarted_points" value='{{ unstarted_points }}' />
+			  <input type='text' id="unstarted_points" ng-model='unstarted_points' />
 			</td>
 			<td>
-			  <input type='text' id="started_points" value='{{ started_points }}' />
+			  <input type='text' id="started_points" ng-model='started_points' />
 			</td>
 			<td>
-			  <input type='text' id="finished_points" value='{{ finished_points }}' />
+			  <input type='text' id="finished_points" ng-model='finished_points' />
 			</td>
 			<td>
-			  <input type='text' id="delivered_points" value='{{ delivered_points }}' />
+			  <input type='text' id="delivered_points" ng-model='delivered_points' />
 			</td>
 			<td>
-			  <input type='text' id="accepted_points"value='{{ accepted_points }}'/>
+			  <input type='text' id="accepted_points"ng-model='accepted_points'/>
 			</td>
 			<td>
-			  <input type='text' id="rejected_points" value='{{ rejected_points }}' />
+			  <input type='text' id="rejected_points" ng-model='rejected_points' />
 			</td>
 			<td>
-			  <input type='text' id="chore_points" value='{{ chore_points }}' />
+			  <input type='text' id="chore_points" ng-model='chore_points' />
 			</td>
 			<td>
-			  <input type='text' id="unpointed_points" value='{{ unpointed_points }}' />
+			  <input type='text' id="unpointed_points" ng-model='unpointed_points' />
 			</td>
 		  </tr>
 		</table>
@@ -85,7 +85,7 @@
 					<td>{{completed_points}}</td>
 					<td>{{completed_points / total_points}}</td>
 				</tr>
-				<tr><th>TOTAL</th><th>{{ aggregrate_total}}</th><th>{{ aggregrate_complete }}</th><th>{{ aggregrate_complete / aggregate_total }}</th></tr>
+				<tr><th>TOTAL</th><th>{{ aggregrate_total }}</th><th>{{ aggregrate_complete }}</th><th>{{ aggregrate_complete / aggregate_total }}</th></tr>
 			</table>
 		  </div>
 		</div>
