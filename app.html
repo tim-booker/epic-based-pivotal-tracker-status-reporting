@@ -30,49 +30,7 @@
 		  </select>
 		</p>
 		<p>Points Per Status</p>
-		<table>
-		  <tr>
-			<th>unscheduled</th>
-			<th>unstarted</th>
-			<th>started</th>
-			<th>finished</th>
-			<th>delivered</th>
-			<th>accepted</th>
-			<th>rejected</th>
-			<th>chore</th>
-			<th>unpointed</th>
-		  </tr>
-		  <tr>
-			<td>
-			  <input type='text' id="unscheduled_points" ng-model='unscheduled_points' />
-			</td>
-			<td>
-			  <input type='text' id="unstarted_points" ng-model='unstarted_points' />
-			</td>
-			<td>
-			  <input type='text' id="started_points" ng-model='started_points' />
-			</td>
-			<td>
-			  <input type='text' id="finished_points" ng-model='finished_points' />
-			</td>
-			<td>
-			  <input type='text' id="delivered_points" ng-model='delivered_points' />
-			</td>
-			<td>
-			  <input type='text' id="accepted_points"ng-model='accepted_points'/>
-			</td>
-			<td>
-			  <input type='text' id="rejected_points" ng-model='rejected_points' />
-			</td>
-			<td>
-			  <input type='text' id="chore_points" ng-model='chore_points' />
-			</td>
-			<td>
-			  <input type='text' id="unpointed_points" ng-model='unpointed_points' />
-			</td>
-		  </tr>
-		</table>
-
+		<div ng-repeat="pointSetting in pointSettings"><label for="{{setting}}">{{setting}}</label><input type="text" id={{setting}} value="{{points}}"></input></div>
 		<a ng-click="getStatsPerEpic()">Run Report</a>
 
 		<div style='margin:40px'>
@@ -81,9 +39,10 @@
 			<table>
 				<tr><th>Epic</th><th>Total Points</th><th>Completed Points</th><th>% Completed</th></tr>
 				<tr ng-repeat="epic in epics">
-					<td>{{total_points}}</td>
-					<td>{{completed_points}}</td>
-					<td>{{completed_points / total_points}}</td>
+					<td>{{epic.name}}</td>
+					<td>{{epic.total_points}}</td>
+					<td>{{epic.completed_points}}</td>
+					<td>{{epic.completed_points / epic.total_points}}</td>
 				</tr>
 				<tr><th>TOTAL</th><th>{{ aggregrate_total }}</th><th>{{ aggregrate_complete }}</th><th>{{ aggregrate_complete / aggregate_total }}</th></tr>
 			</table>

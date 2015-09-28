@@ -1,9 +1,8 @@
 var app = angular.module('status-report', []);
 app.controller('status-controller',function ($scope, $http) {
-	
 	//status
 	$scope.current_status = "Generating Status Report...";
-	
+		
 	//data
 	$scope.projects = [];
 	$scope.epics = [];
@@ -12,15 +11,16 @@ app.controller('status-controller',function ($scope, $http) {
 	$scope.aggregate_total = 0;
 	
 	//point weightings
-	$scope.unscheduled_points = 0.0;
-	$scope.unstarted_points = 0.1;
-	$scope.started_points = 0.5;
-	$scope.finished_points = 0.8;
-	$scope.delivered_points = 0.9;
-	$scope.accepted_points = 1.0;
-	$scope.rejected_points = 0.6;
-	$scope.unpointed_points = 2.0;
-	$scope.chore_points = 1.0;
+	$scope.pointSettings = new Array();
+	$scope.pointSettings["unscheduled"] = 0.0;
+	$scope.pointSettings["unstarted"] = 0.1;
+	$scope.pointSettings["started"] = 0.5;
+	$scope.pointSettings["finished"] = 0.8;
+	$scope.pointSettings["delivered"] = 0.9;
+	$scope.pointSettings["accepted"] = 1.0;
+	$scope.pointSettings["rejected"] = 0.6;
+	$scope.pointSettings["unpointed"] = 2.0;
+	$scope.pointSettings["chore"] = 1.0;
 	
 	//settings		
 	$scope.ignore_label = "non-mvp";
@@ -61,16 +61,16 @@ app.controller('status-controller',function ($scope, $http) {
 					for (var s=0; s<$scope.stories.length; s++) {
 						var story = $scope.stories[s];
 						story.non_mvp = false;
-						for (var l=0; s<story.labels.length; l++) {
+						for (var l=0; l<story.labels.length; l++) {
 							if (story.labels[l].name == $scope.ignore_label) {
 							  non_mvp = true;
 							  break;
 							}
 						}
-						if (!non_mvp) {
-							story.points = (story.hasOwnProperty('estimate')) ? story.estimate : ((story.hasOwnProperty('story_type') && story.story_type == 'feature') ? $scope.unpointed_points : $scope.chore_points);
+						if (!story.non_mvp) {
+							story.points = (story.hasOwnProperty('estimate')) ? story.estimate : ((story.hasOwnProperty('story_type') && story.story_type == 'feature') ? $scope.pointSettings["unpointed"] : $scope.pointSettings["chore"]);
 							epic.total_points += story.points;
-							epic.completed_points += story.points * parseFloat($('#' + stories[i].current_state + '_points')[0].value);
+							epic.completed_points += story.points * parseFloat($scope.pointSettings[story.current_state]);
 						}
 					}
 				}).error(function (data, status, headers, config) {
