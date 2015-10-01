@@ -53,11 +53,10 @@ app.controller('status-controller',function ($scope, $http) {
 			$scope.epics = data;
 			$scope.current_status = "Getting List of Stories...";
 			for (var e=0; e<$scope.epics.length; e++) {
-				var epic = $scope.epics[e];
-				$http.get($scope.api_prefix + "projects/" + $scope.project_id + "/stories?with_label=" + epic.label.name,$scope.config).success(function (data, status, headers, config) {
+				$http.get($scope.api_prefix + "projects/" + $scope.project_id + "/stories?with_label=" + $scope.epics[e].label.name,$scope.config).success(function (data, status, headers, config) {
 					$scope.stories = data;
-					epic.total_points = 0;
-					epic.completed_points = 0;
+					$scope.epics[e].total_points = 0;
+					$scope.epics[e].completed_points = 0;
 					for (var s=0; s<$scope.stories.length; s++) {
 						var story = $scope.stories[s];
 						story.non_mvp = false;
@@ -69,16 +68,16 @@ app.controller('status-controller',function ($scope, $http) {
 						}
 						if (!story.non_mvp) {
 							story.points = (story.hasOwnProperty('estimate')) ? story.estimate : ((story.hasOwnProperty('story_type') && story.story_type == 'feature') ? $scope.pointSettings["unpointed"] : $scope.pointSettings["chore"]);
-							epic.total_points += story.points;
-							epic.completed_points += story.points * parseFloat($scope.pointSettings[story.current_state]);
+							$scope.epics[e].total_points += story.points;
+							$scope.epics[e].completed_points += story.points * parseFloat($scope.pointSettings[story.current_state]);
 						}
 					}
 				}).error(function (data, status, headers, config) {
 					$scope.current_status = "Error: " + status;
 					$scope.working = false;
 				});
-				$scope.aggregate_complete += epic.completed_points;
-				$scope.aggregate_total += epic.total_points;
+				$scope.aggregate_complete += $scope.epics[e].completed_points;
+				$scope.aggregate_total += $scope.epics[e].total_points;
 				
 			}
 			$scope.working = false;
